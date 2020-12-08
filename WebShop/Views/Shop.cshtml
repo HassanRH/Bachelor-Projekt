@@ -1,0 +1,22 @@
+﻿@inherits UmbracoViewPage<Shop>
+
+@{
+	Layout = "master.cshtml";
+}
+
+<!-- Title page -->
+@{
+
+	var image = Model.Value<IPublishedContent>("bannerImage");
+
+	if (image != null)
+	{
+		<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(@image.Url);">
+			<h2 class="ltext-105 cl0 txt-center text-black">
+				@Model.Value("pageTitle")
+			</h2>
+		</section>
+	}
+}
+
+@Html.Action("GetProductsviewOnLoad", "Shop")

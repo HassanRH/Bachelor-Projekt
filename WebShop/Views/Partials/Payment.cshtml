@@ -1,0 +1,18 @@
+﻿@model WebShop.Models.CheckOutForm
+@{
+    <form method="POST" action="https://payment.quickpay.net/framed">
+        <input type="hidden" name="agreement_id" value="@Model.AgreementId">
+        <input type="hidden" name="amount" value="@Model.Amount">
+        <input type="hidden" name="autocapture" value="@Model.Autocapture">
+        <input type="hidden" name="callbackurl" value="@Model.CallbackUrl">
+        <input type="hidden" name="cancelurl" value="@Model.CancelUrl">
+        <input type="hidden" name="checksum" value="@Model.Cheksum">
+        <input type="hidden" name="continueurl" value="@Model.ContinueUrl">
+        <input type="hidden" name="currency" value=@Model.Currency>
+        <input type="hidden" name="language" value="@Model.Language">
+        <input type="hidden" name="merchant_id" value="@Model.MerchantID">
+        <input type="hidden" name="order_id" value=@Model.OrderId>
+        <input type="hidden" name="version" value=@Model.Version>
+        <input type="submit" value="Continue to payment...">
+    </form>
+}

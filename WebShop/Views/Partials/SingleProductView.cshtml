@@ -1,0 +1,177 @@
+﻿@inherits UmbracoViewPage<WebShop.Models.Product.ProductModel>
+
+<div id="singleProductView">
+    <!-- Modal1 -->
+    <div class="wrap-modal1 js-modal1 p-t-60 p-b-20 show-modal1">
+        <div class="overlay-modal1 js-hide-modal1"></div>
+
+        <div class="container">
+            <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                    <img src="../images/icons/icon-close.png" alt="CLOSE">
+                </button>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-7 p-b-30">
+                        <div class="p-l-25 p-r-30 p-lr-0-lg">
+                            <div class="wrap-slick3 flex-sb flex-w">
+                                <div class="wrap-slick3-dots"></div>
+                                <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                                <div class="slick3 gallery-lb mt-5">
+                                    @{
+                                        foreach (var pictureId in Model.Product.pictures)
+                                        {
+                                            <div class="item-slick3" data-thumb="/Umbraco/Api/Image/GetSingleImageFromId/@pictureId" style="">
+                                                <div class="pos-relative" style="height:auto; width:auto;">
+                                                    <img class="mx-auto my-auto" src="/Umbraco/Api/Image/GetSingleImageFromId/@pictureId" alt="IMG-PRODUCT" style="height:auto; width:auto;"/>
+                                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/Umbraco/Api/Image/GetSingleImageFromId/@pictureId">
+                                                        <i class="fa fa-expand"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                        if (Model.Product.pictures.Count == 0)
+                                        {
+                                            <div class="item-slick3" data-thumb="/Umbraco/Api/Image/GetThumbnailFromProduct/@Model.Product.Id">
+                                                <div class="pos-relative" style="height:auto; width:auto;">
+                                                    <img class="mx-auto my-auto" src="/Umbraco/Api/Image/GetThumbnailFromProduct/@Model.Product.Id" alt="IMG-PRODUCT" style="height:auto; width:auto; max-width:100%;"/>
+                                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/Umbraco/Api/Image/GetThumbnailFromProduct/@Model.Product.Id">
+                                                        <i class="fa fa-expand"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-l-25 p-r-30 p-lr-0-lg">
+                            <p class="mtext-103 cl2 mt-2 mb-2 m-l-3 flex-c-m">Tags</p>
+                            <ul class="list-inline mt-3">
+                                @{
+                                    foreach (var tag in Model.Product.tags)
+                                    {
+                                        <li class="list-inline-item m-tb-1">
+                                            <a href="#" id="filtertagssearch" data-id="@tag" class="stext-113 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-1 m-b-5 filtertagsclass">
+                                                @tag
+                                            </a>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 p-b-30">
+                        <div class="p-r-50 p-t-5 p-lr-0-lg">
+                            <ul class="list-group list-group-flush mt-3">
+                                <!-------------------------------------------------------->
+                                <li class="list-group-item">
+                                    <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                                        @Model.Product.Title
+                                    </h4>
+                                </li>
+                                <!-------------------------------------------------------->
+                                <li class="list-group-item">
+                                    <center>
+                                        <span class="mtext-113 cl2">
+                                            @Model.Product.Price Kr.
+                                        </span>
+                                    </center>
+                                </li>
+
+                                <!-------------------------------------------------------->
+                                @{
+                                    if (Model.Product.bulletpoints.Count > 0)
+                                    {
+                                        <p class="mtext-101 cl2 mt-2 mb-2 ml-3 p-l-4">Details</p>
+                                        var firstElement = Model.Product.bulletpoints.First();
+                                        foreach (var point in Model.Product.bulletpoints)
+                                        {
+                                            if (point.Equals(firstElement))
+                                            {
+                                                <li class="ml-3 p-l-4 my-2"> @point </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item"> @point </li>
+                                            }
+                                        }
+                                    }
+
+                                }
+                                <!-------------------------------------------------------->
+                                <li class="list-group-item">
+                                    <!--  -->
+                                    <div class="p-t-12">
+                                        <div class="flex-w flex-r-m p-b-10">
+                                            <div class="size-204 flex-w flex-m respon6-next">
+                                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                        <i class="fs-16 zmdi zmdi-minus"></i>
+                                                    </div>
+
+                                                    <input class="mtext-104 cl3 txt-center num-product" type="number" id="amountOfItem" name="num-product" value="1">
+
+                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                        <i class="fs-16 zmdi zmdi-plus"></i>
+                                                    </div>
+                                                </div>
+
+                                                <button data-id="@Model.Product.Id" data-name="@Model.Product.Title" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-add-cart">
+                                                    Add to cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-------------------------------------------------------->
+                                <li class="list-group-item">
+                                    <p class="mtext-101 cl2">Product Description:</p>
+                                    <p class="stext-102 cl3">
+                                        @Model.Product.Description
+                                    </p>
+                                </li>
+                                <!------------------------------------------------------->
+                                <li class="list-group-item">
+                                    <p class="cl2 mtext-101 mt-3">  Additional Information: </p>
+                                    <p class="stext-102 cl3 mt">
+                                        @Model.Product.Longsummary
+                                    </p>
+                                </li>
+                                <!------------------------------------------------------->
+                                <li class="list-group-item">
+                                    <!--
+    <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+        <div class="flex-m bor9 p-r-10 m-r-11">
+            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+                <i class="zmdi zmdi-favorite"></i>
+            </a>
+        </div>
+
+        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+            <i class="fa fa-facebook"></i>
+        </a>
+
+        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+            <i class="fa fa-twitter"></i>
+        </a>
+
+        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+            <i class="fa fa-google-plus"></i>
+        </a>
+    </div>
+        -->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

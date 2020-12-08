@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Thankyoupage>
+@{
+    Layout = "master.cshtml";
+}
+
+@{
+    if (Model != null && Model.HasValue("pageImage"))
+    {
+        var image = Model.Value<IPublishedContent>("pageImage");
+
+        if (image != null)
+        {
+        <section class="txt-center p-lr-15 p-tb-92" style="background-image: url(@image.GetCropUrl("shippingGif1"))">
+        <h2 class="ltext-105 cl2 txt-center">
+            @Model.Value("pageTitle")
+        </h2>
+        </section>
+        }
+    }
+}
+
+@Html.Action("GetThanks", "ThankYou")

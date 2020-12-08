@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop_Umbraco", "WebShop\Webshop_Umbraco.csproj", "{67B90C89-D1BD-40FE-A657-44765E2AA698}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckOutFormTest", "CheckOutFormTest\CheckOutFormTest.csproj", "{99CC88E6-D20C-4725-9FD9-6E1220460ABB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67B90C89-D1BD-40FE-A657-44765E2AA698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67B90C89-D1BD-40FE-A657-44765E2AA698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67B90C89-D1BD-40FE-A657-44765E2AA698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67B90C89-D1BD-40FE-A657-44765E2AA698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CC88E6-D20C-4725-9FD9-6E1220460ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CC88E6-D20C-4725-9FD9-6E1220460ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CC88E6-D20C-4725-9FD9-6E1220460ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CC88E6-D20C-4725-9FD9-6E1220460ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BC45B9C-B6F6-476A-B78B-1739DC9E53BC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,67 @@
+﻿@inherits UmbracoViewPage<WebShop.Models.Products.ProductInfoModel>
+
+<div id="productsview" class="row isotope-grid">
+    @{
+        if (Model != null && Model.Products != null)
+        {
+            if (Model.Products.Count == 0)
+            {
+                <div class="mtext-113 cl4 hov-cl1 trans-04  mx-auto">
+                    No products found in your search
+                </div>
+            }
+            else
+            {
+                foreach (var product in Model.Products)
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-b-35 p-lr-50 isotope-item m-b-50 bor5">
+
+                        <div class="block2" style="height:300px;">
+                            <div class="block2-pic hov-img0" style="height:200px;">
+                                <center>
+                                    <img id="img" class="" src="/Umbraco/Api/Image/GetThumbnailFromProduct/@product.Id" alt="@product.Title" style="max-height:200px; width:auto; max-width:100%;" />
+                                </center>
+                                <a href="#" data-id="@product.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                    Quick View
+                                </a>
+                            </div>
+
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="#" data-id="@product.Id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 mx-auto js-show-modal1">
+                                        @if (product.Title.Length > 99)
+                                        {
+                                            var arr = product.Title.Split(' ');
+                                            var str = "";
+                                            for (var i = 0; i < 5; i++)
+                                            {
+                                                str += arr[i] + " ";
+                                            }
+                                            <a class="mx-auto"> @str </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="mx-auto">@product.Title</a>
+                                        }
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="mtext-110 cl3 ">
+                                @String.Format("{0:0.00}", product.Price) Kr.
+                            </span>
+                        </div>
+                    </div>
+                }
+            }
+
+
+        }
+    }
+</div>
+
+
+

@@ -1,0 +1,19 @@
+USE [HM_Products]
+
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+DROP TABLE IF EXISTS [dbo].[Brand];
+
+CREATE TABLE [dbo].[Brand](
+	[Brand_id] [int] NOT NULL,
+	[Brand_name] [varchar](max) NULL,
+	[Brand_logo] [varbinary](max) NULL,
+ CONSTRAINT [PK_Brand] PRIMARY KEY CLUSTERED 
+(
+	[Brand_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+

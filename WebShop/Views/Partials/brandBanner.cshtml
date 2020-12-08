@@ -1,0 +1,38 @@
+﻿@using WebShop.Models.Brands
+@model BrandModel
+
+<!-- Banner -->
+<div class="sec-banner bg0 p-t-95">
+    <div class="container">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="row">
+                    @{
+                        var counter = 0;
+
+                        foreach (var brand in Model.Brands)
+                        {
+                            counter++;
+                            var imgSrc = "../../images/whitespace.png";
+                            if (brand.Image != null)
+                            {
+                                imgSrc = "/Umbraco/Api/Image/GetThumbnailFromBrand/" + @brand.ID;
+                            }
+
+                            <div class="col-3 carousel-item active">
+                                <center>
+                                @using (Html.BeginUmbracoForm("GetProductsFromBrand", "Brand"))
+                                {
+                                    <img src="@imgSrc" alt="IMG-BANNER" height="80">
+                                    <input type="hidden" value="@brand.Name" name="brand" />
+                                    <button type="Submit" href="shop" class="ab-t-l s-full flex-col-l-sb p-lr-38 p-t-34 trans-03 respon3"></button>
+                                }
+                                </center>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

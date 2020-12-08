@@ -1,0 +1,118 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>@Model.Value("metaTitle", fallback: Fallback.ToAncestors)</title>
+	<meta name="description" content="@Model.Value("metaDescription",fallback: Fallback.ToAncestors)">
+	<meta name="author" content="">
+	<link rel="icon" type="image/png" href="/images/icons/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="/css/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/MagnificPopup/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<link rel="stylesheet" type="text/css" href="/css/vendor/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+
+<body class="animsition">
+	<!-- Navbar -->
+	@Html.Partial("Navigation/Navigation Bar")
+	@Html.Action("GetSideShoppingCart", "Cart")
+	@Html.Partial("Components/Sidebar")
+
+	<!-- Body -->
+	@RenderBody()
+
+	
+	@Html.Partial("Components/Footer")
+
+	<!-- Scripts -->
+	<scripts>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/jquery/jquery-3.2.1.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/animsition/js/animsition.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/bootstrap/js/popper.js"></script>
+		<script src="/css/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/select2/select2.min.js"></script>
+		<script>
+			$(".js-select2").each(function () {
+				$(this).select2({
+					minimumResultsForSearch: 20,
+					dropdownParent: $(this).next('.dropDownSelect2')
+				});
+			})
+		</script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/daterangepicker/moment.min.js"></script>
+		<script src="/css/vendor/daterangepicker/daterangepicker.js"></script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/slick/slick.min.js"></script>
+		<script src="/scripts/js/slick-custom.js"></script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/parallax100/parallax100.js"></script>
+		<script>
+			$('.parallax100').parallax100();
+		</script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+		<script>
+			$('.gallery-lb').each(function () { // the containers for all your galleries
+				$(this).magnificPopup({
+					delegate: 'a', // the selector for gallery item
+					type: 'image',
+					gallery: {
+						enabled: true
+					},
+					mainClass: 'mfp-fade'
+				});
+			});
+		</script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/isotope/isotope.pkgd.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="/css/vendor/sweetalert/sweetalert.min.js"></script>
+
+
+		<!--===============================================================================================-->
+		<script src="/css/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		<script>
+			$('.js-pscroll').each(function () {
+				$(this).css('position', 'relative');
+				$(this).css('overflow', 'hidden');
+				var ps = new PerfectScrollbar(this, {
+					wheelSpeed: 1,
+					scrollingThreshold: 1000,
+					wheelPropagation: false,
+				});
+
+				$(window).on('resize', function () {
+					ps.update();
+				})
+			});
+		</script>
+
+		<!--===============================================================================================-->
+		<script src="/scripts/js/main.js"></script>
+	</scripts>
+</body>
+
+</html>

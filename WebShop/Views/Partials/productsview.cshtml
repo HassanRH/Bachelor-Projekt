@@ -1,0 +1,24 @@
+﻿@inherits UmbracoViewPage<WebShop.Models.Products.ProductInfoModel>
+
+<div id="myscrolllistener">
+    <!-- Block2 -->
+    <div class="bg0 m-t-75 p-b-140 pt-50">
+        <div class="row">
+            <div class="col-xs-10 col-sm-10 col-xl-10 mx-auto" id="productContainer">
+
+                <div class="flex-w flex-sb-m p-b-75">
+                    <div id="currentFilters" class="w-full" name="FilterRow">
+                        @Html.Action("RenderFilterRow", "Shop")
+                    </div>
+                </div>
+
+                <div id="currentProducts" name="DisplayedProducts">
+                    @Html.Action("RenderProducts", "Shop")
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Render Single product view -->
+    <div id="singleProductView">
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@inherits UmbracoViewPage<Umbraco.Web.PublishedModels.CheckOut>
+@{
+	Layout = "master.cshtml";
+}
+<!-- Title page -->
+@{
+	if (Model.HasValue("shippingImage"))
+	{
+		var image = Model.Value<IPublishedContent>("shippingImage");
+
+		if (image != null)
+		{
+			<section class="txt-center p-lr-15 p-tb-92" style="background-image: url(@image.GetCropUrl("shippingGif1"))">
+				<h2 class="ltext-105 txt-center cl2">
+					@Model.Value("headerShipping")
+				</h2>
+			</section>
+		}
+	}
+}
+<div>
+	@Html.Action("GetCheckoutForm", "Checkout")
+</div>

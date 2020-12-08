@@ -1,0 +1,29 @@
+﻿@using WebShop.Models.Cart
+@model ShoppingCartModel
+
+@{
+    var productsInCart = 0;
+
+    if (Session["productsInCartCount"] != null)
+    {
+        productsInCart = (int)Session["productsInCartCount"];
+    }
+}
+
+@if (productsInCart == 0){
+    <div class="cartlogo">
+        <div id="cartIcon" class="icon-header-item cl0 hov-cl1 trans-04 p-lr-11 js-show-cart">
+            <i class="zmdi zmdi-shopping-cart"></i>
+        </div>
+    </div>
+}
+else
+{
+    <div class="cartlogo">
+        <div id="cartIcon" class="icon-header-item cl0 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="@productsInCart">
+            <i class="zmdi zmdi-shopping-cart"></i>
+        </div>
+    </div>
+}
+
+

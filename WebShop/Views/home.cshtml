@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+	Layout = "master.cshtml";
+	IEnumerable<IPublishedContent> slidesContent = Model.Children(x => x.ContentType.Alias == "slides").FirstOrDefault().Children(x => x.ContentType.Alias == "slide" && x.IsPublished());
+	IEnumerable<string> FeaturedProducts = Model.Value<IEnumerable<string>>("featuredProducts");
+}
+<!-- Slider -->
+<section class="section-slide">
+	<div class="wrap-slick1 rs2-slick1">
+		<div class="slick1">
+			@{
+				if (slidesContent != null)
+				{
+					foreach (var slide in slidesContent)
+					{
+						var image = slide.Value<IPublishedContent>("mediaImage");
+						<!-- Slide -->
+						<div class="item-slick1 bg-overlay1" style="background-image: url('@image.Url'); background-size: 42% 42%;" data-thumb="@image.Url" data-caption="@slide.Value("Title")">
+							<div class="container h-full">
+								<div class="flex-col-c-m h-full p-t-100 p-b-60 respon5">
+									<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+										<span class="ltext-202 txt-center cl0 respon2">
+											@slide.Value("Title")
+										</span>
+									</div>
+
+									<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+										<h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
+											@slide.Value("highlightText")
+										</h2>
+									</div>
+
+									<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+										<a href="/shop" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+											@slide.Value("buttonText")
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				}
+			}
+		</div>
+	</div>
+</section>
+
+@Html.Action("GetBrands", "Brand")
+
+<section>
+	<div class="bg0 m-t-75 p-b-140 pt-5">
+		<div class="container" id="">
+			<a class="flex-c-m mtext-112 cl6 m-b-115"> @Model.Value("featuredText") </a>
+			@Html.Action("FeaturedProducts", "Shop", new { list = @FeaturedProducts })
+			<div class="col-xs-2 col-sm-4 col-xl-3 mx-auto">
+				<a class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 mx-auto" href="/shop"> @Model.Value("buttonText") </a>
+			</div>
+		</div>
+	</div>
+</section>
+<div id="singleProductView">
+</div>

@@ -1,0 +1,309 @@
+﻿@inherits UmbracoViewPage<WebShop.Models.Products.ProductInfoModel>
+
+@{
+    IPublishedContent priceFilter = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "home").FirstChildOfType("shop").FirstChildOfType("filtersFolder").Descendants().Where(x => x.ContentType.Alias == "filterType" && x.IsPublished() && x.Name == "Price").FirstOrDefault();
+    IPublishedContent sortFilter = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == "home").FirstChildOfType("shop").FirstChildOfType("filtersFolder").Descendants().Where(x => x.ContentType.Alias == "filterType" && x.IsPublished() && x.Name == "Sort").FirstOrDefault();
+}
+
+<div id="filterRowView">
+    <div class="flex-w flex-sb-m p-b-5">
+        <div class="w-full m-tb-10 row">
+            <div class="col-xs-5 col-xl-3 flex-c-m stext-106 cl6 size-105 pointer trans-04 m-tb-4 m-r-8">
+                <p class="mtext-102 cl6 trans-04 m-r-8">@sortFilter.Value("displayHeader")</p>
+                <select id="filtersortsearch" class="browser-default custom-select">
+                    <option value="">Show All</option>
+                    @foreach (var child in sortFilter.Children)
+                    {
+                        if (Model.Sort == (string)child.Value("queryValue"))
+                        {
+                            <option selected id="filtersortsearch" data-id="@child.Value("queryValue")" data-key="@child.Value("DisplayName")" value="@child.Value("queryValue")">@child.Value("DisplayName")</option>
+                        }
+                        else
+                        {
+                            <option id="filtersortsearch" data-id="@child.Value("queryValue")" data-key="@child.Value("DisplayName")" value="@child.Value("queryValue")">@child.Value("DisplayName")</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div id="search" class="col-xs-3 col-xl-3 flex-c-m stext-106 cl6 size-105 bor4 pointer trans-04 m-tb-4 m-r-8 ml-4 js-show-search">
+                <i class="icon-search cl2 m-r-6 fs-15 p-lr-10 trans-04 zmdi zmdi-search"></i>
+                <input id="searchinput" class="w-full" type="text" placeholder="Search" value="">
+            </div>
+
+            <div class="col-xs-4 col-xl-1"></div>
+
+            <div class="col-xs-1 col-xl-1 flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 mr-2 ml-4 js-show-filter show-filter">
+                <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+                <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                Filter
+            </div>
+            <div class="col-xs-2 col-xl-2 flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 p-lr-10 m-r-8 ml-4 remove-filter-from-query removeAllFromQueryParams">
+                <div class="float-r">
+                    <i class="fa fa-ban cl2 m-r-6 fs-15 trans-04"></i>
+                    <i class="fa fa-ban cl2 m-r-6 fs-15 trans-04 dis-none"></i>
+                    Clear Selections
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="panel-filter w-full p-t-10">
+            <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+                @{
+                    if (Model.Facets != null && Model.FacetQuery != null)
+                    {
+                        <div class="row w-full p-b-30">
+                            <div class="col-xs-5 col-sm-5 col-xl-3">
+                                <div class="flex-w p-t-4 m-r--5">
+                                    <ul class="">
+                                        <div class="mtext-102 cl2 p-b-15 pl-3">
+                                            @priceFilter.Value("displayHeader")
+                                        </div>
+                                        @foreach (var child in priceFilter.Children)
+                                        {
+                                            var queryVal = child.Value("queryValue").ToString();
+                                            var count = Model.FacetQuery[queryVal];
+
+                                            <!-- (Model.PriceFacets["Price:"+@child.Value("queryValue")]) -->
+                                            <li class="p-b-6">
+                                                <label id="filterpricesearch" data-id="@child.Value("queryValue")" class="container">
+                                                    <a class="filter-link stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                                        @if (Model.Filters["Price"].Contains(@child.Value("queryValue")))
+                                                        {
+                                                            <input type="checkbox" checked style="display:inline">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" style="display:inline">
+                                                        }
+                                                        <span class="checkmark"></span>
+                                                        @child.Value("DisplayName")  <span style="font-size:12px;">(@count)</span>
+                                                    </a>
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                            @foreach (KeyValuePair<string, List<string>> index in Model.Facets)
+                            {
+                                if (@index.Key == "Tags")
+                                {
+                                    <div class="col-xs-12 col-sm-12 col-xl-12">
+                                        <div class="flex-c-m mtext-102 cl2 p-b-15">
+                                            @if (index.Value.Count > 0)
+                                            {
+                                                @index.Key
+                                            }
+                                        </div>
+                                        <div class="flex-w p-t-4 m-r-5">
+                                            @for (var i = 0; i < index.Value.Count; i++)
+                                            {
+                                                if (i % 2 == 0)
+                                                {
+                                                    if (Model.Filters["Tags"].Contains(@index.Value[i]))
+                                                    {
+                                                        <a href="#" id="filtertagssearch" data-id="@index.Value[i]" class="mx-auto flex-c-m stext-113 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 filtertagsclass activetag">
+                                                            @index.Value[i] (@index.Value[i + 1])
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" id="filtertagssearch" data-id="@index.Value[i]" class="mx-auto flex-c-m stext-113 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 filtertagsclass">
+                                                            @index.Value[i]  <span style="font-size:12px;">(@index.Value[i + 1])</span>
+                                                        </a>
+                                                    }
+
+                                                }
+                                            }
+
+                                            @foreach (var tag in Model.Filters["Tags"])
+                                            {
+                                                if (!Model.Facets["Tags"].Contains(tag))
+                                                {
+                                                    <a href="#" id="filtertagssearch" data-id="@tag" class="mx-auto flex-c-m stext-113 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 filtertagsclass activetag">
+                                                        @tag <span style="font-size:12px;">(@Session["Totalproducts"])</span>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    var tagIndex = Model.Facets["Tags"].IndexOf(tag);
+                                                    if (tagIndex > 80)
+                                                    {
+                                                        <a href="#" id="filtertagssearch" data-id="@tag" class="mx-auto flex-c-m stext-113 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 filtertagsclass activetag">
+                                                            @tag <span style="font-size:12px;">(@Session["Totalproducts"])</span>
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                else if (@index.Key == "Category")
+                                {
+                                    <div class="col-xs-10 col-sm-10 col-xl-4">
+                                        <div class="mtext-102 cl2 p-b-15 pl-3 ">
+                                            @if (index.Value.Count > 0)
+                                            {
+                                                @index.Key
+                                            }
+                                        </div>
+                                        <ul class="">
+                                            @for (var i = 0; i < index.Value.Count; i++)
+                                            {
+                                                if (i > 20) { continue; }
+                                                if (i % 2 == 0)
+                                                {
+                                                    <li class="p-b-6">
+                                                        <label id="filtercategorysearch" data-id="@index.Value[i]" class="container" style="display:inline">
+                                                            <a class="filter-link stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                                                @if (Model.Filters["Category"].Contains(@index.Value[i]))
+                                                                {
+                                                                    <input type="checkbox" checked style="display:inline">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox" style="display:inline">
+                                                                }
+                                                                <span class="checkmark"></span>
+                                                                @index.Value[i]  <span style="font-size:12px;">(@index.Value[i + 1])</span>
+                                                            </a>
+                                                        </label>
+                                                    </li>
+                                                }
+                                            }
+
+                                            @foreach (var cat in Model.Filters["Category"])
+                                            {
+                                                if (!Model.Facets["Category"].Contains(cat))
+                                                {
+                                                    <li class="p-b-6">
+                                                        <label id="filtercategorysearch" data-id="@cat" class="container" style="display:inline">
+                                                            <a class="filter-link stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                                                <input type="checkbox" checked style="display:inline">
+                                                                <span class="checkmark"></span>
+                                                                @cat <span style="font-size:12px;">(@Session["Totalproducts"])</span>
+                                                            </a>
+                                                        </label>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    var catIndex = Model.Facets["Category"].IndexOf(cat);
+                                                    if (catIndex > 20)
+                                                    {
+                                                        <li class="p-b-6">
+                                                            <label id="filtercategorysearch" data-id="@cat" class="container" style="display:inline">
+                                                                <a class="filter-link stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                                                    <input type="checkbox" checked style="display:inline">
+                                                                    <span class="checkmark"></span>
+                                                                    @cat <span style="font-size:12px;">(@Model.Facets["Category"][catIndex + 1])</span>
+                                                                </a>
+                                                            </label>
+                                                        </li>
+                                                    }
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                                else if (@index.Key == "Brand")
+                                {
+                                    <div class="col-xs-10 col-sm-10 col-xl-3">
+                                        <div class="mtext-102 cl2 p-b-15 pl-3">
+                                            @if (index.Value.Count > 0)
+                                            {
+                                                @index.Key
+                                            }
+                                        </div>
+                                        <ul>
+                                            @for (var i = 0; i < index.Value.Count; i++)
+                                            {
+                                                if (i % 2 == 0)
+                                                {
+                                                    <li class="p-b-6">
+                                                        <label id="filterbrandsearch" data-id="@index.Value[i]" class="container" style="display:inline">
+                                                            <a class="filter-link stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 filterbrandclass" data-filter="*">
+                                                                @if (Model.Filters["Brand"].Contains(@index.Value[i]))
+                                                                {
+                                                                    <input type="checkbox" checked style="display:inline">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox" style="display:inline">
+                                                                }
+                                                                <span class="checkmark"></span>
+                                                                @index.Value[i] <span style="font-size:12px;">(@index.Value[i + 1])</span>
+                                                            </a>
+                                                        </label>
+                                                    </li>
+                                                }
+                                            }
+                                            @foreach (var brand in Model.Filters["Brand"])
+                                            {
+                                                if (!Model.Facets["Brand"].Contains(brand))
+                                                {
+                                                    <li class="p-b-6">
+                                                        <label id="filterbrandsearch" data-id="@brand" class="container" style="display:inline">
+                                                            <a class="filter-link stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 filterbrandclass" data-filter="*">
+                                                                <input type="checkbox" checked style="display:inline">
+
+                                                                <span class="checkmark"></span>
+                                                                @brand
+                                                            </a>
+                                                        </label>
+                                                    </li>
+                                                }
+
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <!-- Selected Filter / Tags ONLY -->
+
+        <div class="ml-3">
+            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+                @if (Model.Filters != null)
+                {
+
+                    foreach (KeyValuePair<string, List<string>> index in Model.Filters)
+                    {
+                        if (index.Key == "Search")
+                        {
+                            foreach (var param in index.Value)
+                            {
+                                if (param != "")
+                                {
+                               
+                                    <button href="#" data-id="@param" data-key="@index.Key" data-value="@param" class="flex-c-m mtext-107 cl6 size-301 bor8 p-lr-15 p-tb-5 hov-tag1 trans-04 m-r-5 m-b-5 remove-filter-from-query removeFromQueryParams" style="background-color:whitesmoke;">
+                                        Search: @param
+                                    </button>
+                                }
+                            }
+                        }
+                    }
+
+
+
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex-r stext-117 cl6 size-105 mr-2">
+        Products Found: @Model.TotalProducts
+    </div>
+</div>

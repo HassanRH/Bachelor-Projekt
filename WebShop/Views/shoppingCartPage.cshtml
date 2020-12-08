@@ -1,0 +1,24 @@
+﻿@inherits UmbracoViewPage<ShoppingCart>
+
+@{
+	Layout = "master.cshtml";
+}
+
+<!-- Title page -->
+@{
+	if (Model.HasValue("cartImage"))
+	{
+		var image = Model.Value<IPublishedContent>("cartImage");
+		if (image != null)
+		{
+			<section class="bg-img1  txt-center p-lr-15 p-tb-92" style="background-image: url(@image.GetCropUrl("shoppingCart"));">
+				<h2 class="ltext-105 cl0 txt-center">
+					@Model.Value("cartTitle")
+				</h2>
+			</section>
+		}
+	}
+}
+<div id="fullCartView">
+	@Html.Action("GetFullShoppingCart", "Cart");
+</div>

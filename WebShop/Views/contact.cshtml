@@ -1,0 +1,94 @@
+﻿@inherits UmbracoViewPage<ContentModels.ContactUs>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+@{
+	Layout = "master.cshtml";
+}
+
+
+<!-- Title page -->
+@if (Model.HasValue("aboutBgImage"))
+{
+	var image = Model.Value<IPublishedContent>("aboutBgImage");
+
+	if (image != null)
+	{
+		<section class="p-tb-100" style="background-image: url(@image.Url);">
+			<h2 class="ltext-105 cl0 txt-center">
+				@Model.Value("nameOfContactPage")
+			</h2>
+		</section>
+	}
+
+}
+
+<!-- Content page -->
+<section class="bg0 p-t-104 p-b-116">
+	<div class="container">
+		<div class="flex-w flex-tr">
+			<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+				@Html.Action("getForm","Contact")
+			</div>
+
+			<div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
+				<div class="flex-w w-full p-b-42">
+					<span class="fs-18 cl5 txt-center size-211">
+						<span class="lnr lnr-map-marker"></span>
+					</span>
+
+					<div class="size-212 p-t-2">
+						<span class="mtext-110 cl2">
+							Address
+						</span>
+
+						<p class="stext-115 cl6 size-213 p-t-18">
+							@Model.Value("address")
+						</p>
+					</div>
+				</div>
+
+				<div class="flex-w w-full p-b-42">
+					<span class="fs-18 cl5 txt-center size-211">
+						<span class="lnr lnr-phone-handset"></span>
+					</span>
+
+					<div class="size-212 p-t-2">
+						<span class="mtext-110 cl2">
+							Lets Talk
+						</span>
+
+						<p class="stext-115 cl1 size-213 p-t-18">
+							@Model.Value("phoneNumber")
+						</p>
+					</div>
+				</div>
+
+				<div class="flex-w w-full">
+					<span class="fs-18 cl5 txt-center size-211">
+						<span class="lnr lnr-envelope"></span>
+					</span>
+
+					<div class="size-212 p-t-2">
+						<span class="mtext-110 cl2">
+							Sale Support
+						</span>
+
+						<p class="stext-115 cl1 size-213 p-t-18">
+							@Model.Value("salesMail")
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Map -->
+<div class="map">
+	<div class="size-303" id="google_map" data-map-x="55.681980" data-map-y="12.583929" data-pin="../images/icons/favicon.png" data-scrollwhell="0" data-draggable="1" data-zoom="11"></div>
+</div>
+
+
+<script src="../css/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
+<script src="../scripts/js/map-custom.js"></script>
