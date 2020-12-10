@@ -1,8 +1,22 @@
 language: csharp
-solution: WebShop.sln
+sudo: required
+mono: none
+solution: ./WebShop.sln
+dotnet: 3.1
+
 install:
-- nuget restore WebShop.sln
-- nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+- dotnet restore ./WebShop.sln
+
 script:
- - msbuild /p:Configuration=Release WebShop.sln
- - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./CheckOutFormTest.Tests/bin/Release/CheckOutFormTest.Tests.dll
+ - dotnet build ./WebShop.sln
+ - dotnet test
+
+before_deploy:
+ - dotnet pack -c Release
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: dotnet nuget push ./SampleSDK/bin/Release/SampleSDK.*.nupkg  -k $NUGET_API -s https://api.nuget.org/v3/index.json --skip-duplicate
+  on:
+    branch: master

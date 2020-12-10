@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebShop.Entity;
 using System.Collections.Generic;
+using WebShop.Entity;
 
 namespace CheckOutFormTest
 {
