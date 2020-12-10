@@ -1,0 +1,22 @@
+language: csharp
+mono: none
+dotnet: 3.1
+solution: WebShop.sln
+
+install:
+- dotnt restore 
+
+script:
+- dotnt publish --configuration Release --runtime win-x64 /p:PublishSingleFile=true --output win-x64
+
+before_deploy:
+- zip -r9 win-x64.zip win-x64
+
+deploy:
+- provider: releases
+api_key: $api_key
+file:
+- win-x64.zip
+skip_cleanup: true
+on: 
+tags: true 

@@ -52,7 +52,7 @@ namespace CheckOutFormTest
 
                 //Assert
                 // Test customer is created correctly
-                StringAssert.Equals(testcustomer.Name, null);
+                StringAssert.Equals(testcustomer.Name, name);
                 StringAssert.Equals(testcustomer.Email, email);
                 StringAssert.Equals(testcustomer.Address, address);
                 StringAssert.Equals(testcustomer.Apartsuite, apartsuite);
@@ -60,6 +60,7 @@ namespace CheckOutFormTest
                 StringAssert.Equals(testcustomer.Zip, zip);
                 StringAssert.Equals(testcustomer.City, city);
                 StringAssert.Equals(testcustomer.Phone, phone);
+
             }
 
 
