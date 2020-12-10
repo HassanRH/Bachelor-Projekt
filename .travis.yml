@@ -1,10 +1,15 @@
 language: csharp
-mono: none
-dotnet: 3.1
-solution: WebShop.sln
+solution: ./WebShop.sln
 
 before_script:
-- composer install --no-interation 
+- git submodule update --init --recursive
+
+install:
+- apt-get install nunit-console
+- nuget restore ./WebShop.sln
 
 script:
-- UnitTestWebshop/unitTest
+- xbuild ./WebShop.sln
+- nunit-console ./CheckOutFormTest/unitTest
+
+
