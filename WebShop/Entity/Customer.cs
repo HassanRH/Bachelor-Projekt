@@ -10,7 +10,7 @@ namespace WebShop.Entity
         public Customer()
         {
         }
-        public Customer(string name, string lname, string email, string address, string apartsuite, string company, string zip, string city, string phone)
+        public Customer(string name, string email, string address, string apartsuite, string company, string zip, string city, string phone)
         {
             Name = name;
             Email = email;

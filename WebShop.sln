@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop_Umbraco", "WebShop\Webshop_Umbraco.csproj", "{67B90C89-D1BD-40FE-A657-44765E2AA698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckOutFormTest", "CheckOutFormTest\CheckOutFormTest.csproj", "{99CC88E6-D20C-4725-9FD9-6E1220460ABB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestWebshop", "CheckOutFormTest\UnitTestWebshop.csproj", "{99CC88E6-D20C-4725-9FD9-6E1220460ABB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
