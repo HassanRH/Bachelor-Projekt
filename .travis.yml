@@ -1,15 +1,15 @@
 language: csharp
-solution: ./WebShop.sln
+solution: WebShop.sln
 
 before_script:
 - git submodule update --init --recursive
 
 install:
-- apt-get install nunit-console
-- nuget restore ./WebShop.sln
+- nuget restore WebShop.sln
+- nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
 
 script:
-- xbuild ./WebShop.sln
-- nunit-console ./CheckOutFormTest/unitTest
+- msbuild /p:Configuration=Release WebShop.sln
+- mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./CheckOutFormTest.Tests/bin/Release/CheckOutFormTest.Tests.dll
 
 
