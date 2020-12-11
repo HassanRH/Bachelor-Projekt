@@ -487,6 +487,9 @@
       <HintPath>..\packages\UmbracoCms.Web.8.6.4\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) AND '$(MSBuildRuntimeType)' == 'Core' AND '$(OS)' != 'Windows_NT'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\cache\1\e\7\c\4\8\1e7c4839a36a63163b0d467bc8793ea509527e48.jpg" />
     <Content Include="App_Data\cache\2\3\e\2\f\d\23e2fdb5c22f932d27e589fdb90bee65669697c9.jpg" />
